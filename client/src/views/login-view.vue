@@ -56,7 +56,6 @@ input:focus {
 </style>
 
 <script>
-import { socket } from '@/utils/socket';
 export default {
     name: 'LoginView',
     data() {
@@ -69,8 +68,6 @@ export default {
         submitHandler() {
             if (!this.username.trim()) return;
             localStorage.setItem('username', this.username.trim());
-
-
             this.$router.push('/chat')
         }
     }

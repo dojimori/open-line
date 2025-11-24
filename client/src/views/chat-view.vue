@@ -4,8 +4,9 @@
         <!-- chat box -->
         <div v-motion :initial="{ opacity: 0, y: 100 }" :enter="{ opacity: 1, y: 0 }" :duration="400" class="shadow-xl">
             <!-- chat header -->
-            <div class="text-center border-b border-gray-300 py-2">
+            <div class="text-center border-b border-gray-300 py-2 flex justify-between px-2">
                 <small>chat global</small>
+                <button  @click="logout" class="bg-[#29487d] text-white py-0.5 px-1.5 cursor-pointer">logout</button>
             </div>
 
             <!-- chat-body -->
@@ -99,6 +100,11 @@ export default {
             socket.emit('chat:message', this.message);
             // this.messages.push(this.message)
             this.message = ''
+        },
+
+        logout() {
+            localStorage.removeItem('username')
+            this.$router.push('/')
         }
     },
     mounted() {
