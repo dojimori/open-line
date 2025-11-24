@@ -1,6 +1,6 @@
 <template>
     <!-- main window -->
-    <div class="min-w-[300px] md:w-[620px] bg-white shadow-lg shadow-blue-100 ">
+    <div class="min-w-[400px] md:w-[620px] bg-white shadow-lg shadow-blue-100 ">
         <!-- chat box -->
         <div v-motion :initial="{ opacity: 0, y: 100 }" :enter="{ opacity: 1, y: 0 }" :duration="400" class="shadow-xl">
             <!-- chat header -->
@@ -10,16 +10,16 @@
 
             <!-- chat-body -->
             <div class="h-[60vh] p-2 flex flex-col gap-3 overflow-y-scroll">
-                <div v-motion-slide-bottom v-for="message in messages" class="flex flex-col p-1.5 gap-1">
+                <div v-motion-slide-bottom v-for="data in messages" class="flex flex-col p-1.5 gap-1">
                     <div class="flex flex-row flex-wrap gap-4">
-                        <img src="https://placehold.co/40x40" width="40" class="shadow-2xs" />
+                        <img src="/def_pfp_2.jpg" width="36" height="28" class="object-cover"/>
                         <span
                             class="flex items-center text-xs bg-blue-50  border border-blue-100 px-2.5 py-0.5">
-                            {{ message }}
+                            {{ data.message }}
                         </span>
                     </div>
                     <p class="font-bold text-[#29487d]">
-                        doji
+                        {{ data.username }}
                         <span class="text-gray-400 font-normal">8:30 AM</span>
                     </p>
                 </div>
@@ -90,7 +90,7 @@ export default {
     data() {
         return {
             messages: [],
-            message: ''
+            message: '',
         }
     },
     methods: {
@@ -103,7 +103,10 @@ export default {
     },
     mounted() {
         socket.on("chat:message", (data) => {
-            this.messages.push(data)
+            this.messages.push({
+                message: data.message,
+                username: data.username
+            })
         })
     }
 }
