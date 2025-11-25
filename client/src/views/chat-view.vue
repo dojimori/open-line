@@ -38,8 +38,8 @@
                 {{ data.message }}
               </span>
             </div>
-            <p class="font-bold text-[#29487d]">
-              {{ data.username }}
+            <p class="font-bold text-[#29487d] mt-2">
+              <span class="mr-2">{{ data.username }}</span>
               <span class="text-gray-400 font-normal">{{ data.time }}</span>
             </p>
           </div>
@@ -62,7 +62,15 @@
           type="text"
           class="flex-1 shadow-inner outline-none border border-gray-200 p-2 text-sm bg-gray-50 rounded-xs"
         />
-        <button type="submit" class="text-xs cursor-pointer text-white p-2 shadow-inner">
+
+        <button type="button" class="emoji-btn text-xs cursor-pointer text-gray-600 mx-2">
+          <i class="ph ph-smiley text-lg" id="emoji-icon"></i>
+        </button>
+
+        <button
+          type="submit"
+          class="send-btn text-xs cursor-pointer text-white p-2 shadow-inner"
+        >
           send
         </button>
       </form>
@@ -79,7 +87,7 @@ input {
   font-size: 12px;
 }
 
-button {
+.send-btn {
   background-color: #29487d;
   background: linear-gradient(rgb(98, 122, 173), rgb(89, 114, 168));
 }
@@ -90,6 +98,15 @@ input {
 
 input:focus {
   animation: lift 0.3s forwards;
+}
+
+.emoji-btn {
+  transition: all 0.3s ease;
+}
+
+.emoji-btn:hover {
+  scale: 1.2;
+  transform: rotate(-15deg);
 }
 
 @keyframes lift {
