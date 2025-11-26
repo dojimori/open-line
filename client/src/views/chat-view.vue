@@ -38,7 +38,7 @@
               <span
                 class="flex items-center text-xs bg-blue-50 border border-blue-100 px-2.5 py-0.5"
               >
-                {{ data.message }}
+                <span v-html="renderMessage(data.message)"> </span>
               </span>
             </div>
             <p class="font-bold text-[#29487d] mt-2">
@@ -61,6 +61,7 @@
       >
         <input
           v-model="message"
+          ref="messageInput"
           placeholder="Type a message..."
           type="text"
           class="flex-1 shadow-inner outline-none border border-gray-200 p-2 text-sm bg-gray-50 rounded-xs"
@@ -76,7 +77,10 @@
           </div>
         </Transition> -->
 
-        <emoji-picker :showEmoji="showEmoji"></emoji-picker>
+        <emoji-picker
+          :showEmoji="showEmoji"
+          @emoji-selected="emojiHandler"
+        ></emoji-picker>
 
         <button
           type="button"
@@ -131,6 +135,14 @@ img:hover {
   transform: rotate(-15deg);
 }
 
+:deep(.message-emoji) {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 2px;
+}
+
 @keyframes lift {
   from {
     transform: translateY(0);
@@ -153,7 +165,7 @@ img:hover {
 </style>
 
 <script>
-import { ref } from "vue";
+import { ref, render } from "vue";
 import { socket } from "../utils/socket";
 import EmojiPicker from "@/components/emoji-picker.vue";
 
@@ -168,6 +180,7 @@ export default {
       message: "",
       currentTime: new Date().toLocaleTimeString([], { timeStyle: "short" }),
       showEmoji: false,
+      emojiMap: {},
     };
   },
 
@@ -180,6 +193,33 @@ export default {
       });
       // this.messages.push(this.message)
       this.message = "";
+    },
+
+    emojiHandler({ path, emoji }) {
+      this.emojiMap[emoji] = path;
+      const input = this.$refs.messageInput;
+      const start = input.selectionStart;
+      const end = input.selectionEnd;
+      this.message =
+        this.message.substring(0, start) + emoji + this.message.substring(end);
+
+      this.$nextTick(() => {
+        input.focus();
+        const newPosition = start + emoji.length;
+        input.setSelectionRange(newPosition, newPosition);
+      });
+      // this.showEmoji = false;
+    },
+
+    renderMessage(raw) {
+      let rendered = raw;
+
+      Object.entries(this.emojiMap).map((entry) => {
+        let imgEl = `<img src='${entry[1]}' alt='${entry[0]}' class='message-emoji'/>`;
+        rendered = rendered.split(entry[0]).join(imgEl);
+      });
+
+      return rendered;
     },
 
     logout() {

@@ -59,7 +59,7 @@ export default {
   },
 
   methods: {
-    clickHandler({ emoji }) {
+    clickHandler(emoji) {
       //   console.log(emoji);
       this.$emit("emoji-selected", emoji);
     },
