@@ -239,8 +239,6 @@ export default {
       let rendered = raw;
 
       emojis.map(({ emoji, path }) => {
-        console.log(emoji);
-        console.log(path);
         let imgEl = `<img src='${path}' alt='${emoji}' class='message-emoji'/>`;
         rendered = rendered.replaceAll(emoji, imgEl);
       });
@@ -268,7 +266,6 @@ export default {
     const { user } = await getMe();
     this.user = user;
 
-    console.log(user);
     socket.emit("join", {
       username: this.user.username,
       id: this.user.id,

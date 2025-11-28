@@ -157,7 +157,6 @@ export default {
         });
 
         const data = await response.json();
-        console.log(data);
 
         if (response.status == 409 || response.status == 500) {
           this.errorMessage = data.message;

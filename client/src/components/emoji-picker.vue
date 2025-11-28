@@ -41,6 +41,7 @@
 </style>
 
 <script>
+import { emojis } from "@/utils/emojis";
 export default {
   props: {
     showEmoji: {
@@ -51,16 +52,12 @@ export default {
 
   data() {
     return {
-      availableEmojis: [
-        { path: "/assets/emojis/heart_face.png", emoji: "😍" },
-        { path: "/assets/emojis/crying_face.png", emoji: "😭" },
-      ],
+      availableEmojis: emojis,
     };
   },
 
   methods: {
     clickHandler(emoji) {
-      //   console.log(emoji);
       this.$emit("emoji-selected", emoji);
     },
   },
