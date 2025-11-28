@@ -42,8 +42,8 @@
               </span>
             </div>
             <p class="font-bold text-[#29487d] mt-2">
-              <span class="mr-2">{{ data.username }}</span>
-              <span class="text-gray-400 font-normal">{{ data.time }}</span>
+              <small class="mr-2">{{ data.username }}</small>
+              <small class="text-gray-400 font-light">{{ data.time }}</small>
             </p>
           </div>
           <!-- joined message -->
@@ -131,8 +131,8 @@ img {
 
 .emoji-btn:hover,
 img:hover {
-  scale: 1.2;
-  transform: rotate(-15deg);
+  scale: 1.05;
+  /* transform: rotate(-15deg); */
 }
 
 .message-box {
