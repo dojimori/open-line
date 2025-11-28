@@ -34,7 +34,7 @@
           <!-- chat message -->
           <div v-if="data.type == 'chat'">
             <div class="flex flex-row flex-wrap gap-4">
-              <img src="/def_pfp_2.jpg" width="36" height="28" class="object-cover" />
+              <img src="/def_pfp_6.jpg" width="36" height="28" class="object-cover" />
               <span
                 class="flex break-all items-center text-xs bg-blue-50 border border-blue-100 px-2.5 py-0.5 cursor-pointer message-box max-w-[300px]"
                 v-html="renderMessage(data.message)"
