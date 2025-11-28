@@ -184,7 +184,7 @@ import { ref, render } from "vue";
 import { socket } from "@/utils/socket";
 import EmojiPicker from "@/components/emoji-picker.vue";
 import { getMe } from "@/utils/user";
-
+import { emojis } from "@/utils/emojis";
 export default {
   name: "ChatView",
   components: {
@@ -238,9 +238,11 @@ export default {
     renderMessage(raw) {
       let rendered = raw;
 
-      Object.entries(this.emojiMap).map(([emoji, path]) => {
+      emojis.map(({ emoji, path }) => {
+        console.log(emoji);
+        console.log(path);
         let imgEl = `<img src='${path}' alt='${emoji}' class='message-emoji'/>`;
-        rendered = rendered.split(emoji).join(imgEl);
+        rendered = rendered.replaceAll(emoji, imgEl);
       });
       // console.log(`<span class='w-[300px] text-red text-wrap'>${rendered}</span>`);
       return `<span class='text-red text-wrap'>${rendered}</span>`;
@@ -297,9 +299,6 @@ export default {
         type: "chat",
         userId: data.user.id,
       });
-
-      console.log(data);
-      console.log(user.id);
 
       this.scrollToBottom();
     });
