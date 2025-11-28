@@ -139,8 +139,8 @@ img:hover {
   transition: all 0.3s ease;
 }
 
-.message-box:hover {
-  transform: scale(1.05);
+.message-box:active {
+  transform: scale(1.02);
 }
 
 :deep(.message-emoji) {
@@ -235,8 +235,12 @@ export default {
       return `<span class='text-red text-wrap'>${rendered}</span>`;
     },
 
-    logout() {
-      localStorage.removeItem("user");
+    async logout() {
+      // localStorage.removeItem("user");
+      await fetch("http://localhost:8080/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
       this.$router.push("/");
     },
 
@@ -249,6 +253,7 @@ export default {
   },
   async mounted() {
     const { user } = await getMe();
+
     socket.emit("join", user.username);
     socket.on("joined", (data) => {
       this.messages.push({

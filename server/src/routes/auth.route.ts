@@ -99,8 +99,12 @@ router.post('/login', async (req: Request, res: Response) => {
 })
 
 router.post('/logout', async (req: Request, res: Response) => {
-    req.session.destroy(() => {
-        console.log('Session destroyed');
+    req.session.destroy((err) => {
+        if(err) {
+            console.log(err)
+        } else {
+            console.log('Session destroyed');
+        }
     });
 
     return res.json({ message: 'Logged out'})
