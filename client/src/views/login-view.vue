@@ -13,6 +13,12 @@
         class="flex-1 bg-red-100 border border-red-300-300 p-2 text-red-800 shadow-inner"
         >{{ errorMessage }}</span
       >
+      <span
+        v-motion-fade
+        v-else-if="successMessage"
+        class="flex-1 bg-red-100 border border-red-300-300 p-2 text-red-800 shadow-inner"
+        >{{ successMessage }}</span
+      >
     </div>
 
     <div class="mt-4">
@@ -124,7 +130,7 @@ export default {
   },
 
   computed: {
-    queryMessage() {
+    successMessage() {
       return this.$route.query.message;
     },
   },

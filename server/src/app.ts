@@ -6,6 +6,7 @@ import userRoute from './routes/user.route'
 import morgan from 'morgan'
 import cors from 'cors'
 import session from 'express-session'
+import { getAuthed } from "./utils/user"
 
 const app = express();
 const server = http.createServer(app)
@@ -57,10 +58,10 @@ io.on('connection', (socket) => {
     io.emit('chat:message', {
       message: data.message,
       time: data.time,
-      username: users.get(socket.id)
+      user: users.get(socket.id)
     });
-    const user = users.get(socket.id);
-    console.log(`received: from ${user}`, data)
+    // const user = users.get(socket.id);
+    // console.log(`received: from ${user}`, data)
   });
 
 
@@ -68,15 +69,15 @@ io.on('connection', (socket) => {
     add joined users to the map  
     so we can track them
   */
-  socket.on('join', (username) => {
-    console.log(`${username} joined.`)
-    users.set(socket.id, username);
-    io.emit('joined', `${username} joined the chat`)
+  socket.on('join', (data) => {
+    // console.log(`${username} joined.`)
+    users.set(socket.id, { username: data.username , id: data.id });
+    io.emit('joined', `${data.username} joined the chat`)
   })
 
   socket.on('disconnect', () => {
-    const username = users.get(socket.id);
-    io.emit('left', `${username} left the chat`)
+    const user = users.get(socket.id);
+    io.emit('left', `${user.username} left the chat`)
   });
 
 });

@@ -41,8 +41,15 @@
               >
               </span>
             </div>
-            <p class="font-bold text-[#29487d] mt-2">
-              <small class="mr-2">{{ data.username }}</small>
+            <p
+              :class="[
+                'font-bold text-[#29487d] mt-2',
+                { 'text-green-600': data.userId == user.id },
+              ]"
+            >
+              <small class="mr-2">{{
+                data.userId == user.id ? "You" : data.username
+              }}</small>
               <small class="text-gray-400 font-light">{{ data.time }}</small>
             </p>
           </div>
@@ -190,11 +197,14 @@ export default {
       currentTime: new Date().toLocaleTimeString([], { timeStyle: "short" }),
       showEmoji: false,
       emojiMap: {},
+      user: null,
     };
   },
 
+  computed: {},
+
   methods: {
-    sendMessage() {
+    async sendMessage() {
       // TODO: replace to communicate with an API later
 
       if (this.message.trim() == "") return;
@@ -202,6 +212,7 @@ export default {
       socket.emit("chat:message", {
         message: this.message,
         time: this.currentTime,
+        userId: this.user.id,
       });
       // this.messages.push(this.message)
       this.message = "";
@@ -227,9 +238,9 @@ export default {
     renderMessage(raw) {
       let rendered = raw;
 
-      Object.entries(this.emojiMap).map((entry) => {
-        let imgEl = `<img src='${entry[1]}' alt='${entry[0]}' class='message-emoji'/>`;
-        rendered = rendered.split(entry[0]).join(imgEl);
+      Object.entries(this.emojiMap).map(([emoji, path]) => {
+        let imgEl = `<img src='${path}' alt='${emoji}' class='message-emoji'/>`;
+        rendered = rendered.split(emoji).join(imgEl);
       });
       // console.log(`<span class='w-[300px] text-red text-wrap'>${rendered}</span>`);
       return `<span class='text-red text-wrap'>${rendered}</span>`;
@@ -253,8 +264,13 @@ export default {
   },
   async mounted() {
     const { user } = await getMe();
+    this.user = user;
 
-    socket.emit("join", user.username);
+    console.log(user);
+    socket.emit("join", {
+      username: this.user.username,
+      id: this.user.id,
+    });
     socket.on("joined", (data) => {
       this.messages.push({
         message: data,
@@ -277,9 +293,14 @@ export default {
       this.messages.push({
         message: data.message,
         time: data.time,
-        username: data.username,
+        username: data.user.username,
         type: "chat",
+        userId: data.user.id,
       });
+
+      console.log(data);
+      console.log(user.id);
+
       this.scrollToBottom();
     });
 
