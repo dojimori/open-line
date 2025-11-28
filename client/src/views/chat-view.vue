@@ -36,7 +36,7 @@
             <div class="flex flex-row flex-wrap gap-4">
               <img src="/def_pfp_2.jpg" width="36" height="28" class="object-cover" />
               <span
-                class="flex text-wrap items-center text-xs bg-blue-50 border border-blue-100 px-2.5 py-0.5 cursor-pointer message-box max-w-[300px]"
+                class="flex break-all items-center text-xs bg-blue-50 border border-blue-100 px-2.5 py-0.5 cursor-pointer message-box max-w-[300px]"
                 v-html="renderMessage(data.message)"
               >
               </span>
@@ -231,8 +231,8 @@ export default {
         let imgEl = `<img src='${entry[1]}' alt='${entry[0]}' class='message-emoji'/>`;
         rendered = rendered.split(entry[0]).join(imgEl);
       });
-      console.log(`<span class='w-[300px] text-red text-wrap'>${rendered}</span>`);
-      return `<span class='w-[300px] text-red text-wrap'>${rendered}</span>`;
+      // console.log(`<span class='w-[300px] text-red text-wrap'>${rendered}</span>`);
+      return `<span class='text-red text-wrap'>${rendered}</span>`;
     },
 
     logout() {
@@ -249,10 +249,8 @@ export default {
   },
   async mounted() {
     const { user } = await getMe();
-    console.log("user is ", user);
     socket.emit("join", user.username);
     socket.on("joined", (data) => {
-      // console.log(data);
       this.messages.push({
         message: data,
         type: "joined",
@@ -262,7 +260,6 @@ export default {
     });
 
     socket.on("left", (data) => {
-      // console.log(data);
       this.messages.push({
         message: data,
         type: "left",
