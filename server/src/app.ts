@@ -77,8 +77,29 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     const user = users.get(socket.id);
-    io.emit('left', `${user.username} left the chat`)
+    if (user) {
+      io.emit('left', `${user.username} left the chat`)
+      users.delete(socket.id)
+
+    }
   });
+
+  socket.on('typing', (data) => {
+    socket.broadcast.emit('typing', data);
+  })
+
+  socket.on('stop_typing', (data) => {
+    socket.broadcast.emit('stop_typing');
+  })
+
+  socket.on('left', () => {
+    const user = users.get(socket.id);
+    if (user) {
+      io.emit('left', `${user.username} left the chat`)
+      users.delete(socket.id)
+    }
+  });
+
 
 });
 

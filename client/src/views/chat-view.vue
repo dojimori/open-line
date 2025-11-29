@@ -34,7 +34,7 @@
           <!-- chat message -->
           <div v-if="data.type == 'chat'">
             <div class="flex flex-row flex-wrap gap-4">
-              <img src="/def_pfp_6.jpg" width="36" height="28" class="object-cover" />
+              <img src="/def_pfp_6.jpg" class="pfp" />
               <span
                 class="flex break-all items-center text-xs bg-blue-50 border border-blue-100 px-2.5 py-0.5 cursor-pointer message-box max-w-[300px]"
                 v-html="renderMessage(data.message)"
@@ -66,11 +66,23 @@
         class="flex gap-2 p-2 bg-gray-100 border-t-2 border-gray-200 relative"
         @submit.prevent="sendMessage"
       >
+        <span
+          v-motion
+          :initial="{ opacity: 0 }"
+          :enter="{ opacity: 1 }"
+          :leave="{ opacity: 0 }"
+          v-if="isTyping"
+          class="w-full text-center text-gray-500 absolute bottom-full"
+        >
+          <small>{{ typingText }}</small>
+        </span>
         <input
           v-model="message"
           ref="messageInput"
           placeholder="Type a message..."
           type="text"
+          @input="onTyping"
+          @blur="onStopTyping"
           class="flex-1 shadow-inner outline-none border border-gray-200 p-2 text-sm bg-gray-50 rounded-xs"
         />
 
@@ -109,12 +121,29 @@
 </template>
 
 <style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
 input::placeholder {
   font-size: 12px;
 }
 
 input {
   font-size: 12px;
+}
+
+.pfp {
+  max-width: 28px;
+  max-height: 28px;
+  object-fit: cover;
 }
 
 .send-btn {
@@ -180,7 +209,7 @@ img:hover {
 </style>
 
 <script>
-import { ref, render } from "vue";
+import { ref, render, Transition } from "vue";
 import { socket } from "@/utils/socket";
 import EmojiPicker from "@/components/emoji-picker.vue";
 import { getMe } from "@/utils/user";
@@ -198,6 +227,8 @@ export default {
       showEmoji: false,
       emojiMap: {},
       user: null,
+      typingText: null,
+      isTyping: false,
     };
   },
 
@@ -217,6 +248,15 @@ export default {
       // this.messages.push(this.message)
       this.message = "";
       this.showEmoji = false;
+    },
+
+    onTyping() {
+      this.isTyping = true;
+      socket.emit("typing", `${this.user.username} is typing...`);
+    },
+
+    onStopTyping() {
+      socket.emit("stop_typing");
     },
 
     emojiHandler({ path, emoji }) {
@@ -252,6 +292,9 @@ export default {
         method: "POST",
         credentials: "include",
       });
+
+      socket.emit("left");
+
       this.$router.push("/");
     },
 
@@ -298,6 +341,14 @@ export default {
       });
 
       this.scrollToBottom();
+    });
+
+    socket.on("typing", (data) => {
+      this.typingText = data;
+    });
+
+    socket.on("stop_typing", (data) => {
+      this.typingText = null;
     });
 
     // this.$nextTick(() => this.$nextTick(() => this.scrollToBottom()));

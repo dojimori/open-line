@@ -16,7 +16,7 @@
       <span
         v-motion-fade
         v-else-if="successMessage"
-        class="flex-1 bg-red-100 border border-red-300-300 p-2 text-red-800 shadow-inner"
+        class="flex-1 bg-green-100 border border-green-300-300 p-2 text-green-800 shadow-inner"
         >{{ successMessage }}</span
       >
     </div>
