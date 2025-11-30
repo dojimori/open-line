@@ -135,8 +135,6 @@ export default {
     },
   },
 
-  // TODO: submit creds to http://localhost:3000/api/auth/login
-
   methods: {
     submitHandler() {
       if (!this.username.trim()) return;
