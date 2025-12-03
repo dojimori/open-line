@@ -1,25 +1,9 @@
-import express, { Request, Response } from 'express'
-import { prisma } from '../../lib/prisma';
+import { Request, Response } from 'express'
+import { prisma } from '../../../lib/prisma';
 import bcrypt from "bcryptjs"
 
-const router = express.Router(); 
 
-router.get('/auth-test', async (req, res) => {
-    try {
-        await prisma.user.create({
-            data: {
-                username: 'test-user',
-                password: '123123'
-            }
-        })
-
-        res.status(201).send('created')
-    } catch(err) {
-        console.log(err)
-    }
-})
-
-router.post('/register', async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response) => {
     try {
         // await prisma.user.create({
         //     data: {
@@ -64,9 +48,9 @@ router.post('/register', async (req: Request, res: Response) => {
         console.log(err)
         res.status(500).json({ message: `${err}`})
     }
-})
+}
 
-router.post('/login', async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
     try {
         if (req.session.user) return res.status(409).json({ message: 'Session already exists.'})
 ;
@@ -100,9 +84,9 @@ router.post('/login', async (req: Request, res: Response) => {
         console.log(error)
         return res.status(500).json({ message: 'Login failed :('});
     }
-})
+}
 
-router.post('/logout', async (req: Request, res: Response) => {
+export const logout = async (req: Request, res: Response) => {
     req.session.destroy((err) => {
         if(err) {
             console.log(err)
@@ -112,6 +96,4 @@ router.post('/logout', async (req: Request, res: Response) => {
     });
 
     return res.json({ message: 'Logged out'})
-})
-
-export default router;
+}

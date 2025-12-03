@@ -1,8 +1,6 @@
-import express, { Response, Request } from 'express'
+import { Request, Response } from 'express'
 
-const router = express.Router();
-
-router.get('/getme', async (req: Request, res: Response) => {
+export const getMe = async (req: Request, res: Response) => {
     try {
         const user = req.session.user;
         if (!user) {
@@ -13,7 +11,4 @@ router.get('/getme', async (req: Request, res: Response) => {
     } catch(err) {
         console.log(err)
     }
-})
-
-
-export default router;
+}
