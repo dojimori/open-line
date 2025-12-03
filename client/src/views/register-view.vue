@@ -114,6 +114,7 @@ input:focus {
 
 <script>
 import { VueSpinner } from "vue3-spinners";
+import api from "@/utils/api.js";
 
 export default {
   name: "RegisterView",
@@ -139,20 +140,25 @@ export default {
     async register() {
       try {
         this.isLoading = true;
-        const response = await fetch("http://localhost:8080/api/auth/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: this.username,
-            password: this.password,
-          }),
+        // const response = await fetch("http://localhost:8080/api/auth/register", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({
+        //     username: this.username,
+        //     password: this.password,
+        //   }),
+        // });
+
+        const response = await api.post("/auth/register", {
+          username: this.username,
+          password: this.password,
         });
 
-        const data = await response.json();
+        // const data = await response.json();
+        const { data } = response;
         console.log(response);
-
         if (response.status == 409 || response.status == 500) {
           this.errorMessage = data.message || "Something wen't terribly wrong :(";
           return;

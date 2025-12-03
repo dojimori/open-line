@@ -10,6 +10,7 @@ const routes = [
         component: LoginView,
         beforeEnter: async (to, from, next) => {
             const user = await getMe();
+            console.log(user)
             if (user) next('/chat')
             else next();
         }
