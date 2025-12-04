@@ -28,6 +28,8 @@
         <div class="flex-1 flex flex-col gap-2 p-2">
           <input
             type="file"
+            @change="fileHandler"
+            accept=".jpg, .png"
             class="bg-gray-100 p-2 border border-gray-400 w-full cursor-pointer hover:translate-y-[-3px] hover:shadow-md duration-200"
           />
           <div>
@@ -35,8 +37,8 @@
             <input
               type="text"
               id="username"
-              :value="user ? user.username : ''"
-              class="border w-full border-gray-400 outline-none p-2 shadow-inner focus:translate-y-[-1.2px] focus:border-blue-900 focus:shadow-none duration-200"
+              v-model="username"
+              class="border w-full border-gray-400 outline-none p-2 shadow-inner focus:translate-y-[-1.2px] focus:border-gray-900 focus:shadow-none duration-200"
             />
           </div>
         </div>
@@ -49,8 +51,9 @@
           <input
             type="text"
             id="displayName"
+            v-model="displayName"
             placeholder="the name displayed in chats"
-            class="border w-full border-gray-400 outline-none p-2 shadow-inner"
+            class="border w-full border-gray-400 outline-none p-2 shadow-inner focus:shadow-none"
           />
         </div>
         <!-- about me -->
@@ -59,7 +62,8 @@
           <textarea
             name=""
             id="aboutMe"
-            class="border w-full border-gray-400 outline-none p-2 shadow-inner"
+            v-model="aboutMe"
+            class="border w-full border-gray-400 outline-none p-2 shadow-inner focus:shadow-none"
           ></textarea>
           <small>(max 200 characters)</small>
         </div>
@@ -69,7 +73,8 @@
           <select
             name=""
             id="gender"
-            class="border w-full border-gray-400 outline-none p-2 shadow-inner"
+            v-model="gender"
+            class="border w-full border-gray-400 outline-none p-2 shadow-inner focus:shadow-none"
           >
             <option value="" selected disabled>----- please select -----</option>
             <option value="">male</option>
@@ -84,7 +89,8 @@
           <select
             name=""
             id="gender"
-            class="border w-full border-gray-400 outline-none p-2 shadow-inner"
+            v-model="country"
+            class="border w-full border-gray-400 outline-none p-2 shadow-inner focus:shadow-none"
           >
             <option value="" selected disabled>----- please select -----</option>
             <option v-for="country in countries" :value="country">{{ country }}</option>
@@ -97,18 +103,20 @@
           <textarea
             name=""
             id="aboutMe"
-            class="border w-full border-gray-400 outline-none p-2 shadow-inner"
+            v-model="likes"
+            class="border w-full border-gray-400 outline-none p-2 shadow-inner focus:shadow-none"
           ></textarea>
           <small>(max 200 characters)</small>
         </div>
 
         <!-- dislikes -->
         <div>
-          <label for="aboutMe" class="block font-bold">dislikes</label>
+          <label for="dislikes" class="block font-bold">dislikes</label>
           <textarea
             name=""
-            id="aboutMe"
-            class="border w-full border-gray-400 outline-none p-2 shadow-inner"
+            id="dislikes"
+            v-model="dislikes"
+            class="border w-full border-gray-400 outline-none p-2 shadow-inner focus:shadow-none"
           ></textarea>
           <small>(max 200 characters)</small>
         </div>
@@ -118,13 +126,13 @@
 </template>
 
 <script>
+// TODO (PRIORITY): IMPLEMENT CROPPER JS FOR PROFILE PICTURE
 import { PhArrowBendDownLeft, PhFloppyDisk } from "@phosphor-icons/vue";
 import userApi from "@/utils/api/user.api";
 export default {
   components: { PhArrowBendDownLeft, PhFloppyDisk },
   data() {
     return {
-      user: null,
       countries: [
         "Afghanistan",
         "Armenia",
@@ -176,11 +184,24 @@ export default {
         "Vietnam",
         "Yemen",
       ],
+      username: null,
+      imageFile: null,
+      displayName: null,
+      aboutMe: null,
+      gender: null,
+      country: null,
+      likes: null,
+      dislikes: null,
     };
   },
   methods: {
     async fetchUser() {
-      this.user = await userApi.getMe();
+      const user = await userApi.getMe();
+      this.username = user.username;
+    },
+
+    fileHandler(e) {
+      this.imageFile = e.target.files[0];
     },
   },
   mounted() {
