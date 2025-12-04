@@ -18,5 +18,38 @@ model User {
   id Int @id @default(autoincrement())
   username String
   password String
+
+  profile Profile?
   createdAt DateTime @default(now())
+}
+
+enum Gender {
+  Male
+  Female
+  Other
+}
+
+enum Relationship {
+  single
+  inRelationship
+  engaged
+  married
+  complicated
+  loner
+}
+
+model Profile {
+  id Int @id @default(autoincrement())
+  displayName String?
+  profilePicture String?
+  gender Gender?
+  aboutMe String? // 200 chars max 
+  likes String? // 200 chars max 
+  dislikes String? // 200 chars max 
+  country String?
+  coverPicture String?
+
+  user User @relation(fields: [userId], references: [id])
+  userId Int @unique
+
 }

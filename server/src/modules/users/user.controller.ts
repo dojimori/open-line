@@ -12,3 +12,13 @@ export const getMe = async (req: Request, res: Response) => {
         console.log(err)
     }
 }
+
+export const updateProfile = async (req: Request, res: Response) => {
+    try {
+        const body = req.body;
+        console.log(body)
+        res.json(body)
+    } catch(error) {
+        console.log(error)
+    }
+}

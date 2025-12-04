@@ -11,6 +11,7 @@ import { initializeSocketHandlers } from "./sockets"
 const app = express();
 const server = http.createServer(app)
 
+
 export const io = new Server(server, {
   cors: {
     origin: 'http://localhost:5173',
@@ -25,6 +26,7 @@ app.use(
   })
 )
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(session({
   secret: "secrethehehe",
   resave: false,
