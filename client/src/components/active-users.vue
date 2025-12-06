@@ -2,9 +2,7 @@
   <!-- Users List Section -->
   <div class="bg-white border border-gray-200 shadow-lg md:w-[250px] w-full">
     <div>
-      <h2 class="p-4 font-bold text-[#29487d] mb-4 border-b border-gray-300 pb-2">
-        Active Users
-      </h2>
+      <h2 class="header p-2 font-bold text-white text-center">Active Users</h2>
       <div class="flex flex-col">
         <!-- TODO: replace with your actual user list -->
         <div class="flex items-center cursor-pointer gap-2 p-2">
@@ -25,6 +23,10 @@
 </template>
 
 <style scoped>
+.header {
+  background: linear-gradient(to bottom, #4e69a2, #3b5998);
+}
+
 .pfp {
   max-width: 28px;
   max-height: 28px;
