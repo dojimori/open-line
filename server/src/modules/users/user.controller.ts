@@ -17,7 +17,16 @@ export const getMe = async (req: Request, res: Response) => {
 export const updateProfile = async (req: Request, res: Response) => {
     try {
         const authed = req.session.user;
-
+        const {
+            imageFile,
+            username,
+            displayName,
+            aboutMe,
+            gender,
+            country,
+            likes,
+            dislikes
+        } = req.body;
         if (!authed) {
             return res.status(403);
         }
@@ -41,27 +50,25 @@ export const updateProfile = async (req: Request, res: Response) => {
         await prisma.profile.upsert({
             where: { userId: authed.id },
             create: {
-                displayName: "w",
-                profilePicture: "w",
-                gender: "Male",
-                aboutMe: "w",
-                likes: "w",
-                dislikes: "w",
-                country: "w",
-                coverPicture: "w",
+                displayName,
+                profilePicture: imageFile,
+                gender,
+                aboutMe,
+                likes,
+                dislikes,
+                country,
                 user: {
                     connect: { id: authed.id }
                 }
             },
             update: {
-                displayName: "w",
-                profilePicture: "w",
-                gender: "Male",
-                aboutMe: "w",
-                likes: "w",
-                dislikes: "w",
-                country: "w",
-                coverPicture: "w",
+                displayName,
+                profilePicture: imageFile,
+                gender,
+                aboutMe,
+                likes,
+                dislikes,
+                country,
             }
         })
 
