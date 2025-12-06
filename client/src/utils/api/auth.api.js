@@ -22,5 +22,14 @@ export default {
             console.error(error)
         }
         
+    },
+
+    async register(username, password) {
+        const response = await api.post("/auth/register", {
+          username,
+          password,
+        });
+
+        return response
     }
 }

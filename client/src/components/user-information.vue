@@ -83,6 +83,9 @@
 .pfp {
   width: 75px;
 }
+* {
+  font-size: 12px;
+}
 </style>
 
 <script>

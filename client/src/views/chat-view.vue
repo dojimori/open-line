@@ -3,7 +3,7 @@
   <div class="flex flex-col md:flex-row justify-center gap-2 w-full mx-auto p-4">
     <user-information></user-information>
     <!-- Chat Section -->
-    <div class="flex-1 bg-white shadow-lg shadow-blue-100 w-[900px] h-[700px] flex">
+    <div class="flex-1 bg-white shadow-lg shadow-blue-100 w-[700px] h-[700px] flex">
       <!-- chat box -->
       <div
         v-motion
@@ -13,7 +13,9 @@
         class="shadow-xl flex-1 flex flex-col justify-between"
       >
         <!-- chat header -->
-        <div class="text-center border-b border-gray-300 py-2 flex justify-between px-2">
+        <div
+          class="text-center border-b border-gray-300 py-2 flex items-center justify-between px-2"
+        >
           <h2 class="font-bold text-[#29487d]">Open Line</h2>
           <button
             @click="logout"

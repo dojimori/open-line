@@ -4,18 +4,18 @@
     class="bg-white p-4 w-[300px] border border-slate-400 shadow-md"
     @submit.prevent="register"
   >
-    <h4 class="text-lg">register</h4>
-    <div class="border w-full border-gray-300 mb-4"></div>
+    <h4 class="text-lg text-center">Register</h4>
+    <div class="border w-full border-gray-300"></div>
     <div class="flex items-center justify-center">
       <span
         v-motion-fade
         v-if="errorMessage"
-        class="flex-1 bg-red-100 border border-red-300-300 p-2 text-red-800 shadow-inner"
+        class="flex-1 bg-red-100 border border-red-300-300 p-2 text-red-800 shadow-inner mt-2"
         >{{ errorMessage }}</span
       >
     </div>
 
-    <div class="mt-4">
+    <div class="mt-2">
       <input
         type="text"
         placeholder="Username"
@@ -114,7 +114,8 @@ input:focus {
 
 <script>
 import { VueSpinner } from "vue3-spinners";
-import api from "@/utils/api";
+// import api from "@/utils/api";
+import authApi from "@/utils/api/auth.api";
 
 export default {
   name: "RegisterView",
@@ -151,21 +152,20 @@ export default {
         //   }),
         // });
 
-        const response = await api.post("/auth/register", {
-          username: this.username,
-          password: this.password,
-        });
+        const { data } = await authApi.register(this.username, this.password);
 
         // const data = await response.json();
-        const { data } = response;
-        console.log(response);
-        if (response.status == 409 || response.status == 500) {
-          this.errorMessage = data.message || "Something wen't terribly wrong :(";
-          return;
-        }
+        // const { data } = response;
+        // console.log(response);
+        // if (response.status == 409 || response.status == 500) {
+        //   this.errorMessage = data.message || "Something wen't terribly wrong :(";
+        //   return;
+        // }
 
         this.$router.push({ name: "login", query: { message: data.message } });
       } catch (error) {
+        this.errorMessage =
+          error.response.data.message || "Something wen't terribly wrong :(";
         console.error("error", error);
       } finally {
         this.isLoading = false;

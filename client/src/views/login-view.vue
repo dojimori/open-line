@@ -4,13 +4,13 @@
     class="bg-white p-4 w-[300px] border border-slate-400 shadow-md"
     @submit.prevent="login"
   >
-    <h4 class="text-lg">join chat</h4>
+    <h4 class="text-lg text-center">Join chat</h4>
     <div class="border w-full border-gray-300"></div>
     <div class="flex items-center justify-center">
       <span
         v-motion-fade
         v-if="errorMessage"
-        class="flex-1 bg-red-100 border border-red-300-300 p-2 text-red-800 shadow-inner my-2"
+        class="flex-1 bg-red-100 border border-red-300-300 p-2 text-red-800 shadow-inner mt-2"
         >{{ errorMessage }}</span
       >
       <span
@@ -21,7 +21,7 @@
       >
     </div>
 
-    <div class="mt-4">
+    <div class="mt-2">
       <input
         type="text"
         placeholder="Username"
