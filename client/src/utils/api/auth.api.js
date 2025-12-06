@@ -17,10 +17,7 @@ export default {
 
     async logout() {
         try {
-            api.post("/auth/logout", {
-                username,
-                password
-            });
+            await api.post("/auth/logout");
         } catch(error) {
             console.error(error)
         }
