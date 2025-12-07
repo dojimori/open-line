@@ -84,9 +84,9 @@
               class="border w-full border-gray-400 outline-none p-2 shadow-inner focus:shadow-none"
             >
               <option value="" disabled selected>----- please select -----</option>
-              <option value="">male</option>
-              <option value="">female</option>
-              <option value="">other</option>
+              <option value="Male">male</option>
+              <option value="Female">female</option>
+              <option value="Other">other</option>
             </select>
           </div>
 
@@ -228,6 +228,7 @@ export default {
     },
 
     async saveHandler() {
+      alert("processing");
       const formData = new FormData();
       formData.append("imageFile", this.imageFile);
       formData.append("username", this.username);

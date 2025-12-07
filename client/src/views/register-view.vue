@@ -4,7 +4,7 @@
     class="bg-white p-4 w-[300px] border border-slate-400 shadow-md"
     @submit.prevent="register"
   >
-    <h4 class="text-lg text-center">Register</h4>
+    <h4 class="text-4xl font-bold text-center">Register</h4>
     <div class="border w-full border-gray-300"></div>
     <div class="flex items-center justify-center">
       <span

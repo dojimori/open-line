@@ -4,7 +4,7 @@
     class="bg-white p-4 w-[300px] border border-slate-400 shadow-md"
     @submit.prevent="login"
   >
-    <h4 class="text-lg text-center">Join chat</h4>
+    <h4 class="font-bold text-center">Join chat</h4>
     <div class="border w-full border-gray-300"></div>
     <div class="flex items-center justify-center">
       <span
@@ -83,6 +83,10 @@
   scale: 1.1;
   transform: rotate(1deg);
 }
+/* 
+* {
+  font-size: 14px;
+} */
 
 input {
   animation: default 0.3s forwards;
@@ -90,6 +94,19 @@ input {
 
 input:focus {
   animation: lift 0.3s forwards;
+}
+
+form {
+  animation: stretch 0.5s;
+}
+
+@keyframes stretch {
+  from {
+    width: 800px;
+  }
+  to {
+    width: 300px;
+  }
 }
 
 @keyframes lift {

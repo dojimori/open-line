@@ -33,6 +33,8 @@
 <script>
 import { PhSignOut, PhPencilSimple, PhGlobe } from "@phosphor-icons/vue";
 import authApi from "@/utils/api/auth.api";
+import { socket } from "@/utils/socket";
+
 export default {
   components: {
     PhPencilSimple,
