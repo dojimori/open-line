@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import userApi from "../api/user.api";
+import userApi from "../utils/api/user.api";
 import { defineStore } from "pinia";
 const store = createStore({
     state() {
@@ -26,7 +26,7 @@ const store = createStore({
 export { store }
 
 
-export const useAuthStore = defineStore('auth', {
+export const useStore = defineStore('auth', {
     state: () => ({
         user: null,
         isLoading: false,
@@ -53,6 +53,17 @@ export const useAuthStore = defineStore('auth', {
                 this.user = null;
                 this.isAuthenticated = false;
                 return null;
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
+        async updateUser(credentials) {
+            this.isLoading = true;
+            try {
+                await userApi.updateProfile(credentials);
+            } catch (error) {
+                throw error;
             } finally {
                 this.isLoading = false;
             }

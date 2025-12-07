@@ -147,7 +147,7 @@
 import { PhArrowBendDownLeft, PhFloppyDisk } from "@phosphor-icons/vue";
 import userApi from "@/utils/api/user.api";
 import HeaderComponent from "@/components/header-component.vue";
-import { useAuthStore } from "@/utils/store";
+import { useStore } from "@/store";
 
 export default {
   data() {
@@ -220,7 +220,7 @@ export default {
   },
   computed: {
     authStore() {
-      return useAuthStore();
+      return useStore();
     },
   },
 
@@ -248,7 +248,7 @@ export default {
       if (this.likes) formData.append("likes", this.likes);
       if (this.dislikes) formData.append("dislikes", this.dislikes);
 
-      await userApi.updateProfile(formData);
+      // await userApi.updateProfile(formData);
     },
   },
   mounted() {

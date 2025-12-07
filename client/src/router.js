@@ -5,7 +5,7 @@ import RegisterView from './views/register-view.vue';
 import userApi from './utils/api/user.api';
 import EditProfile from './views/edit-profile.vue';
 // import { store } from './utils/store'
-import { useAuthStore } from './utils/store';
+import { useStore } from '@/store';
 
 const routes = [
   {
@@ -36,16 +36,16 @@ export const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  const authStore = useAuthStore()
+  const store = useStore()
 
-  if (!authStore.user && !authStore.isLoading) {
-    await authStore.fetchUser()
+  if (!store.user && !store.isLoading) {
+    await store.fetchUser()
   }
 
-  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+  if (to.meta.requiresAuth && !store.isAuthenticated) {
     next('/')
   }
-  else if (to.meta.requiresGuest && authStore.isAuthenticated) {
+  else if (to.meta.requiresGuest && store.isAuthenticated) {
     next('/chat')
   }
   else {

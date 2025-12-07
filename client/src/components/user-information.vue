@@ -99,7 +99,7 @@
 import userApi from "@/utils/api/user.api";
 // import { PhPencilSimple } from "@phosphor-icons";
 import { PhPencilSimple } from "@phosphor-icons/vue";
-import { useAuthStore } from "@/utils/store";
+import { useStore } from "@/store";
 export default {
   data() {
     return {
@@ -112,15 +112,15 @@ export default {
   },
 
   computed: {
-    authStore() {
-      return useAuthStore();
+    store() {
+      return useStore();
     },
   },
 
   async mounted() {
     // this.user = await userApi.getMe();
     // this.user = this.$store.state.user;
-    this.user = this.authStore.getUser;
+    this.user = this.store.getUser;
   },
 };
 </script>
