@@ -224,6 +224,7 @@ import { PhSignOut, PhPaperPlaneRight, PhPencilSimple } from "@phosphor-icons/vu
 // import api from "@/utils/api/";
 import HeaderComponent from "@/components/header-component.vue";
 import authApi from "@/utils/api/auth.api";
+import { useAuthStore } from "@/utils/store";
 
 export default {
   name: "ChatView",
@@ -249,7 +250,11 @@ export default {
     };
   },
 
-  computed: {},
+  computed: {
+    authStore() {
+      return useAuthStore();
+    },
+  },
 
   methods: {
     async sendMessage() {
@@ -325,7 +330,8 @@ export default {
   },
   async mounted() {
     // this.user = await userApi.getMe();
-    this.user = this.$store.state.user;
+    // this.user = this.$store.state.user;
+    this.user = this.authStore.getUser;
 
     socket.emit("join", {
       username: this.user.username,

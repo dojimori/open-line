@@ -147,6 +147,7 @@
 import { PhArrowBendDownLeft, PhFloppyDisk } from "@phosphor-icons/vue";
 import userApi from "@/utils/api/user.api";
 import HeaderComponent from "@/components/header-component.vue";
+import { useAuthStore } from "@/utils/store";
 
 export default {
   data() {
@@ -217,10 +218,17 @@ export default {
     PhFloppyDisk,
     PhArrowBendDownLeft,
   },
+  computed: {
+    authStore() {
+      return useAuthStore();
+    },
+  },
+
   methods: {
     async fetchUser() {
       // const user = await userApi.getMe();
-      const user = this.$store.state.user;
+      // const user = this.$store.state.user;
+      const user = this.authStore.getUser;
       this.username = user.username;
     },
 

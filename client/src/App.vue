@@ -75,11 +75,5 @@ body {
 </style>
 
 <script>
-export default {
-  mounted() {
-    this.$store.dispatch("fetchUser");
-
-    console.log("from app", this.$store.state.user);
-  },
-};
+export default {};
 </script>

@@ -62,9 +62,11 @@
         <div :class="['flex justify-between', { 'flex-col gap-2': user.profile.likes }]">
           <span class="font-bold text-gray-600">likes</span>
           <span v-if="!user.profile.likes">-</span>
-          <span v-else class="bg-blue-500/5 p-2 border border-gray-300 rounded-sm">{{
-            user.profile.likes
-          }}</span>
+          <span
+            v-else
+            class="bg-blue-500/5 p-2 border border-gray-300 rounded-sm hover:-translate-y-1 cursor-pointer duration-150"
+            >{{ user.profile.likes }}</span
+          >
         </div>
 
         <!-- dislikes -->
@@ -73,9 +75,11 @@
         >
           <span class="font-bold text-gray-600">dislikes</span>
           <span v-if="!user.profile.dislikes">-</span>
-          <span v-else class="bg-blue-500/5 p-2 border border-gray-300 rounded-sm">{{
-            user.profile.dislikes
-          }}</span>
+          <span
+            v-else
+            class="bg-blue-500/5 p-2 border border-gray-300 rounded-sm hover:-translate-y-1 cursor-pointer duration-150"
+            >{{ user.profile.dislikes }}</span
+          >
         </div>
       </div>
     </div>
@@ -95,7 +99,7 @@
 import userApi from "@/utils/api/user.api";
 // import { PhPencilSimple } from "@phosphor-icons";
 import { PhPencilSimple } from "@phosphor-icons/vue";
-
+import { useAuthStore } from "@/utils/store";
 export default {
   data() {
     return {
@@ -107,9 +111,16 @@ export default {
     PhPencilSimple,
   },
 
+  computed: {
+    authStore() {
+      return useAuthStore();
+    },
+  },
+
   async mounted() {
     // this.user = await userApi.getMe();
-    this.user = this.$store.state.user;
+    // this.user = this.$store.state.user;
+    this.user = this.authStore.getUser;
   },
 };
 </script>
