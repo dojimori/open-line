@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { prisma } from '../../../lib/prisma';
 
+
 export const getMe = async (req: Request, res: Response) => {
     try {
         const user = req.session.user;
@@ -27,7 +28,7 @@ export const getMe = async (req: Request, res: Response) => {
 export const updateProfile = async (req: Request, res: Response) => {
     try {
         const authed = req.session.user;
-        const profilePicture = req.profile;
+        const profilePicture = (req as any).profile;
         const {
             username,
             displayName,
@@ -41,8 +42,10 @@ export const updateProfile = async (req: Request, res: Response) => {
             return res.status(403);
         }
 
+        let imageFile;
+
         const body = req.body;
-        console.log(body)
+        console.log(profilePicture)
 
         await prisma.profile.upsert({
             where: { userId: authed.id },
