@@ -45,7 +45,7 @@
                   <!-- pfp -->
                   <img
                     :src="
-                      user.profile.profilePicture
+                      user.profile?.profilePicture
                         ? `http://localhost:8080${user.profile.profilePicture}`
                         : '/def_pfp_6.jpg'
                     "
@@ -344,7 +344,7 @@ export default {
     socket.emit("join", {
       username: this.user.username,
       id: this.user.id,
-      displayName: this.user.profile.displayName ?? null,
+      displayName: this.user.profile?.displayName || null,
     });
 
     socket.on("joined", (data) => {
