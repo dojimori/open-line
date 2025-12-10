@@ -249,7 +249,6 @@ export default {
     return {
       messages: [],
       message: "",
-      currentTime: new Date().toLocaleTimeString([], { timeStyle: "short" }),
       showEmoji: false,
       emojiMap: {},
       user: null,
@@ -266,12 +265,13 @@ export default {
 
   methods: {
     async sendMessage() {
+      const currentTime = new Date().toLocaleTimeString([], { timeStyle: "short" });
       // TODO: replace to communicate with an API later
       if (this.message.trim() == "") return;
 
       socket.emit("chat:message", {
         message: this.message,
-        time: this.currentTime,
+        time: currentTime,
         userId: this.user.id,
       });
       // this.messages.push(this.message)
