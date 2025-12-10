@@ -1,8 +1,10 @@
 <template>
   <!-- main window -->
-  <main class="flex flex-col gap-0 border border-gray-400 w-full md:w-[1080px]">
+  <main
+    class="flex flex-col gap-0 border border-gray-400 w-full sm:w-2xl md:w-3xl lg:w-7xl"
+  >
     <header-component></header-component>
-    <div class="flex flex-col md:flex-row justify-center w-full">
+    <div class="flex-1 flex flex-col lg:flex-row justify-center">
       <user-information></user-information>
       <!-- Chat Section -->
       <div class="flex-1 bg-white min-h-[660px] flex">
