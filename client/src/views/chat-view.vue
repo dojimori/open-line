@@ -116,7 +116,7 @@
               @click="showEmoji = !showEmoji"
               class="emoji-btn cursor-pointer text-gray-600 mx-2"
             >
-              <i class="ph ph-smiley" style="font-size: 1.4em"></i>
+              <ph-smiley size="18"></ph-smiley>
             </button>
 
             <button
@@ -233,7 +233,7 @@ import userApi from "@/utils/api/user.api";
 import { emojis } from "@/utils/emojis";
 import ActiveUsers from "@/components/active-users.vue";
 import UserInformation from "@/components/user-information.vue";
-import { PhSignOut, PhPaperPlaneRight, PhPencilSimple } from "@phosphor-icons/vue";
+import { PhPaperPlaneRight, PhSmiley } from "@phosphor-icons/vue";
 // import api from "@/utils/api/";
 import HeaderComponent from "@/components/header-component.vue";
 import authApi from "@/utils/api/auth.api";
@@ -245,10 +245,9 @@ export default {
     EmojiPicker,
     ActiveUsers,
     UserInformation,
-    PhSignOut,
     PhPaperPlaneRight,
-    PhPencilSimple,
     HeaderComponent,
+    PhSmiley,
   },
   data() {
     return {
