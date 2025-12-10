@@ -45,8 +45,8 @@
                   <!-- pfp -->
                   <img
                     :src="
-                      user.profile?.profilePicture
-                        ? `http://localhost:8080${user.profile.profilePicture}`
+                      data.profilePicture
+                        ? `http://localhost:8080${data.profilePicture}`
                         : '/def_pfp_6.jpg'
                     "
                     class="pfp border-2 border-gray-400"
@@ -344,7 +344,8 @@ export default {
     socket.emit("join", {
       username: this.user.username,
       id: this.user.id,
-      displayName: this.user.profile?.displayName || null,
+      displayName: this.user.profile?.displayName,
+      profilePicture: this.user.profile?.profilePicture,
     });
 
     socket.on("joined", (data) => {
@@ -369,9 +370,9 @@ export default {
       this.messages.push({
         message: data.message,
         time: data.time,
-        // username: ,
-        username: data.user.displayName ?? data.user.username,
+        username: data.user.displayName || data.user.username,
         type: "chat",
+        profilePicture: data.user.profilePicture || null,
         userId: data.user.id,
       });
 
