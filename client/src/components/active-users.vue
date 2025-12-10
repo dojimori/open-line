@@ -1,6 +1,6 @@
 <template>
   <!-- Users List Section -->
-  <div v-motion-slide-left class="bg-white shadow-lg md:w-[170px]">
+  <div v-motion-slide-left class="bg-white shadow-lg lg:w-[170px]">
     <div>
       <h2 class="header p-2 font-bold text-white text-center">Active Users</h2>
       <div class="flex flex-col">

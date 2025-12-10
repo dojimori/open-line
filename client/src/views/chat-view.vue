@@ -7,7 +7,7 @@
     <div class="flex-1 flex flex-col lg:flex-row justify-center">
       <user-information></user-information>
       <!-- Chat Section -->
-      <div class="flex-1 bg-white min-h-[660px] flex">
+      <div class="flex-1 bg-white flex">
         <!-- chat box -->
         <div
           v-motion
@@ -31,7 +31,10 @@
           </div> -->
 
           <!-- chat-body -->
-          <div class="p-2 flex-1 flex flex-col gap-3 overflow-y-scroll" ref="chatBox">
+          <div
+            class="p-2 flex-1 flex flex-col gap-3 min-h-[400px] max-h-[400px] lg:min-h-[660px] lg:max-h-[660px] overflow-y-scroll"
+            ref="chatBox"
+          >
             <div
               v-motion
               :initial="{ opacity: 0, x: -50 }"
