@@ -253,6 +253,12 @@ export default {
       const user = this.store.getUser;
       this.username = user.username;
       this.userProfilePicture = user.profile.profilePicture;
+      this.displayName = user.profile?.displayName;
+      this.aboutMe = user.profile?.aboutMe;
+      this.gender = user.profile?.gender;
+      this.country = user.profile?.country;
+      this.likes = user.profile?.likes;
+      this.dislikes = user.profile?.dislikes;
       console.log(user);
     },
 
