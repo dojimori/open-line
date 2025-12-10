@@ -12,7 +12,7 @@
             ? `http://localhost:8080${user.profile.profilePicture}`
             : '/def_pfp_6.jpg'
         "
-        class="pfp"
+        class="pfp border-2 border-gray-400"
       />
       <!-- username -->
       <h1 class="mt-4 font-bold">
