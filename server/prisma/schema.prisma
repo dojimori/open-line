@@ -31,11 +31,11 @@ enum Gender {
 
 enum Relationship {
   single
-  inRelationship
-  engaged
   married
-  complicated
-  loner
+  taken
+  loveTriangle
+  itsComplicated
+  oneSided
 }
 
 model Profile {

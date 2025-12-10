@@ -36,7 +36,8 @@ export const updateProfile = async (req: Request, res: Response) => {
             gender,
             country,
             likes,
-            dislikes
+            dislikes,
+            relationship
         } = req.body;
         if (!authed) {
             return res.status(403);
@@ -56,6 +57,7 @@ export const updateProfile = async (req: Request, res: Response) => {
                 likes: likes ?? undefined,
                 dislikes: dislikes ?? undefined,
                 country: country ?? undefined,
+                relationship: relationship ?? undefined,
                 user: {
                     connect: { id: authed.id }
                 }
@@ -67,6 +69,7 @@ export const updateProfile = async (req: Request, res: Response) => {
                 aboutMe: aboutMe ?? undefined,
                 likes: likes ?? undefined,
                 dislikes: dislikes ?? undefined,
+                relationship: relationship ?? undefined,
                 country: country ?? undefined,
             }
         })

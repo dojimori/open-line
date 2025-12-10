@@ -2,7 +2,17 @@
 CREATE TYPE "Gender" AS ENUM ('Male', 'Female', 'Other');
 
 -- CreateEnum
-CREATE TYPE "Relationship" AS ENUM ('single', 'inRelationship', 'engaged', 'married', 'complicated', 'loner');
+CREATE TYPE "Relationship" AS ENUM ('single', 'married', 'taken', 'loveTriangle', 'itsComplicated', 'oneSided');
+
+-- CreateTable
+CREATE TABLE "User" (
+    "id" SERIAL NOT NULL,
+    "username" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Profile" (
@@ -15,6 +25,8 @@ CREATE TABLE "Profile" (
     "dislikes" TEXT,
     "country" TEXT,
     "coverPicture" TEXT,
+    "relationship" "Relationship",
+    "interests" TEXT,
     "userId" INTEGER NOT NULL,
 
     CONSTRAINT "Profile_pkey" PRIMARY KEY ("id")
