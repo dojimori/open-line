@@ -65,8 +65,8 @@ export default {
         // this.store.isAuthenticated = false;
         // this.store.user = null;
         this.store.clearUser();
-
         this.$router.push("/");
+        socket.emit("left");
       } catch (error) {
         console.error(error);
       }

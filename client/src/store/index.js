@@ -1,4 +1,3 @@
-import { createStore } from "vuex";
 import userApi from "../utils/api/user.api";
 import { defineStore } from "pinia";
 

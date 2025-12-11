@@ -349,6 +349,7 @@ export default {
     socket.emit("join", {
       username: this.user.username,
       id: this.user.id,
+      type: "join",
       displayName: this.user.profile?.displayName,
       profilePicture: this.user.profile?.profilePicture,
     });
