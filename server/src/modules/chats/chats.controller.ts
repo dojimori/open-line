@@ -5,8 +5,13 @@ import { prisma } from '../../../lib/prisma'
 export const getAllChats = async (req: Request, res: Response) => {
     try {
         const chats = await prisma.chat.findMany({
+            take: 18,
             include: {
-                user: true
+                user: {
+                    include: {
+                        profile: true
+                    }
+                }
             }
         }) 
 
