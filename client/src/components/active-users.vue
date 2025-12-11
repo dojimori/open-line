@@ -7,7 +7,7 @@
         <!-- TODO: this will be clickable and redirect to user's profile page :) -->
         <div
           v-for="user in activeUsers"
-          class="p-2 flex gap-5 hover:bg-gray-100 cursor-pointer"
+          class="p-2 flex gap-5 hover:bg-gray-100 items-center cursor-pointer"
         >
           <img
             :src="
@@ -19,6 +19,10 @@
           />
 
           <h4>{{ user.username }}</h4>
+
+          <div
+            class="w-[10px] h-[10px] border-2 border-green-100 rounded-full bg-green-500"
+          ></div>
         </div>
       </div>
     </div>
