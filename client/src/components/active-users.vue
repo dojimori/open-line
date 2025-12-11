@@ -4,10 +4,21 @@
     <div>
       <h2 class="header p-2 font-bold text-white text-center">Active Users</h2>
       <div class="flex flex-col">
-        <!-- TODO: replace with your actual user list -->
+        <!-- TODO: this will be clickable and redirect to user's profile page :) -->
+        <div
+          v-for="user in activeUsers"
+          class="p-2 flex gap-5 hover:bg-gray-100 cursor-pointer"
+        >
+          <img
+            :src="
+              user.profilePicture
+                ? `http://localhost:8080${user.profilePicture}`
+                : '/def_pfp_6.jpg'
+            "
+            class="pfp border-2 border-gray-400"
+          />
 
-        <div v-for="user in activeUsers">
-          <span>{{ user.username }}</span>
+          <h4>{{ user.username }}</h4>
         </div>
       </div>
     </div>
