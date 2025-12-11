@@ -4,7 +4,7 @@ import { users } from "..";
 const onDisconnectHandler = (io: Server, socket: Socket) => {
     const user = users.get(socket.id);
     if (user) {
-        io.emit('left', `${user.username} left the chat`)
+        io.emit('left', `${user.displayName || user.username} left the chat`)
         console.log(socket.id)
         users.delete(socket.id)
     }
