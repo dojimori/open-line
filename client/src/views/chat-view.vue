@@ -241,8 +241,6 @@ export default {
             userId: chat.user.id,
           });
         });
-
-        this.scrollToBottom();
       } catch (error) {
         console.log(error);
       }
@@ -316,13 +314,15 @@ export default {
     scrollToBottom() {
       this.$nextTick(() => {
         const el = this.$refs.chatBox;
+        console.log(el.scrollHeight);
         if (el) el.scrollTop = el.scrollHeight;
       });
     },
   },
 
   async mounted() {
-    this.fetchChats();
+    await this.fetchChats();
+    this.scrollToBottom;
 
     // this.user = await userApi.getMe();
     // this.user = this.$store.state.user;
