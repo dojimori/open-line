@@ -241,6 +241,8 @@ export default {
             userId: chat.user.id,
           });
         });
+
+        this.message.reverse();
       } catch (error) {
         console.log(error);
       }
