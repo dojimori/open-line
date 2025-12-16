@@ -1,14 +1,21 @@
 <template>
   <!-- main window -->
-  <main class="flex flex-col gap-0 border border-gray-400 w-full sm:w-2xl md:w-3xl lg:w-7xl">
+  <main
+    class="flex flex-col gap-0 border border-gray-400 w-full sm:w-2xl md:w-3xl lg:w-7xl"
+  >
     <header-component></header-component>
     <div class="flex-1 flex flex-col lg:flex-row justify-center">
       <user-information></user-information>
       <!-- Chat Section -->
       <div class="flex-1 bg-white flex">
         <!-- chat box -->
-        <div v-motion :initial="{ opacity: 0 }" :enter="{ opacity: 1 }" :duration="300"
-          class="flex-1 flex flex-col justify-between">
+        <div
+          v-motion
+          :initial="{ opacity: 0 }"
+          :enter="{ opacity: 1 }"
+          :duration="300"
+          class="flex-1 flex flex-col justify-between"
+        >
           <!-- chat header -->
           <!-- <div
             class="text-center border-b border-gray-300 py-2 flex items-center justify-between px-2"
@@ -26,26 +33,41 @@
           <!-- chat-body -->
           <div
             class="p-2 flex-1 flex flex-col gap-3 min-h-[400px] max-h-[400px] lg:min-h-[660px] lg:max-h-[660px] overflow-y-scroll"
-            ref="chatBox">
-            <div v-motion :initial="{ opacity: 0, x: -50 }" :enter="{ opacity: 1, x: 0 }" :duration="400"
-              v-for="(data, index) in messages" :key="index" class="flex flex-col p-1.5 gap-1">
+            ref="chatBox"
+          >
+            <div
+              v-motion
+              :initial="{ opacity: 0, x: -50 }"
+              :enter="{ opacity: 1, x: 0 }"
+              :duration="400"
+              v-for="(data, index) in messages"
+              :key="index"
+              class="flex flex-col p-1.5 gap-1"
+            >
               <!-- chat message -->
               <div v-if="data.type == 'chat'">
                 <div class="flex flex-row flex-wrap gap-4">
                   <!-- pfp -->
-                  <img :src="data.profilePicture
-                      ? `http://localhost:8080${data.profilePicture}`
-                      : '/def_pfp_6.jpg'
-                    " class="pfp border-2 border-gray-400" />
+                  <img
+                    :src="
+                      data.profilePicture
+                        ? `http://localhost:8080${data.profilePicture}`
+                        : '/def_pfp_6.jpg'
+                    "
+                    class="pfp border-2 border-gray-400"
+                  />
                   <span
                     class="flex break-all items-center text-xs bg-blue-50 border border-blue-100 px-2.5 py-0.5 cursor-pointer message-box max-w-[300px]"
-                    v-html="renderMessage(data.message)">
+                    v-html="renderMessage(data.message)"
+                  >
                   </span>
                 </div>
-                <p :class="[
-                  'font-bold text-[#29487d] mt-2',
-                  { 'text-green-600': data.userId == user.id },
-                ]">
+                <p
+                  :class="[
+                    'font-bold text-[#29487d] mt-2',
+                    { 'text-green-600': data.userId == user.id },
+                  ]"
+                >
                   <small class="mr-2">{{
                     data.userId == user.id ? "You" : data.username
                   }}</small>
@@ -62,23 +84,47 @@
           </div>
 
           <!-- chat actions -->
-          <form class="flex gap-2 p-2 bg-gray-100 border-t-2 border-gray-200 relative" @submit.prevent="sendMessage">
-            <span v-motion :initial="{ opacity: 0 }" :enter="{ opacity: 1 }" :leave="{ opacity: 0 }" v-if="isTyping"
-              class="w-full text-center text-gray-500 absolute bottom-full">
+          <form
+            class="flex gap-2 p-2 bg-gray-100 border-t-2 border-gray-200 relative"
+            @submit.prevent="sendMessage"
+          >
+            <span
+              v-motion
+              :initial="{ opacity: 0 }"
+              :enter="{ opacity: 1 }"
+              :leave="{ opacity: 0 }"
+              v-if="isTyping"
+              class="w-full text-center text-gray-500 absolute bottom-full"
+            >
               <small>{{ typingText }}</small>
             </span>
-            <input v-model="message" ref="messageInput" placeholder="Type a message..." type="text" @input="onTyping"
+            <input
+              v-model="message"
+              ref="messageInput"
+              placeholder="Type a message..."
+              type="text"
+              @input="onTyping"
               @blur="onStopTyping"
-              class="flex-1 shadow-inner outline-none border border-gray-200 p-2 text-sm bg-gray-50 rounded-xs" />
+              class="flex-1 shadow-inner outline-none border border-gray-200 p-2 text-sm bg-gray-50 rounded-xs"
+            />
 
-            <emoji-picker :showEmoji="showEmoji" @emoji-selected="emojiHandler"></emoji-picker>
+            <emoji-picker
+              :showEmoji="showEmoji"
+              @emoji-selected="emojiHandler"
+            ></emoji-picker>
 
-            <button type="button" @click="showEmoji = !showEmoji" class="emoji-btn cursor-pointer text-gray-600 mx-2">
+            <button
+              type="button"
+              @click="showEmoji = !showEmoji"
+              class="emoji-btn cursor-pointer text-gray-600 mx-2"
+            >
               <ph-smiley size="18"></ph-smiley>
             </button>
 
-            <button type="submit"
-              class="send-btn font-bold cursor-pointer text-white px-4 py-2 shadow-inner hover:opacity-90 hover:translate-y-[-3px] duration-200">
+            <button
+              type="submit"
+              class="send-btn font-bold cursor-pointer text-white px-4 py-2 shadow-inner hover:opacity-90 hover:translate-y-[-3px] duration-200"
+            >
               <ph-paper-plane-right :size="14" weight="fill"></ph-paper-plane-right>
             </button>
           </form>
@@ -241,8 +287,6 @@ export default {
             userId: chat.user.id,
           });
         });
-
-        this.message.reverse();
       } catch (error) {
         console.log(error);
       }

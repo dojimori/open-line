@@ -9,7 +9,8 @@
         open line
       </router-link>
 
-      <router-link to="/profile" class="header-btn hover:translate-y-[-1.5px] cursor-pointer">
+      <router-link :to="{ name: 'UserProfile', params: { 'username': 'doujin22' } }"
+        class="header-btn hover:translate-y-[-1.5px] cursor-pointer">
         <ph-user></ph-user>
         profile
       </router-link>
