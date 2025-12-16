@@ -17,7 +17,7 @@ export const getAllChats = async (req: Request, res: Response) => {
                 time: 'desc'
             }
         })
-
+        chats.reverse();
         res.status(200).send({ chats });
     } catch (error) {
         console.log(error)
