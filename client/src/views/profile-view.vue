@@ -18,7 +18,8 @@
                             class="bg-white p-4 outline-none border  border-gray-300 shadow-inner focus:border-blue-500 duration-100"
                             placeholder="write something cool!" type="text"></textarea>
                         <div class="flex">
-                            <button class="bg-blue-800 text-white py-2 px-6 rounded-sm">post</button>
+                            <button
+                                class="post-btn text-white py-1.5 px-6 border border-gray-400 cursor-pointer">post</button>
                         </div>
                     </div>
 
@@ -28,6 +29,18 @@
         </div>
     </main>
 </template>
+
+<style scoped>
+.post-btn {
+    background: linear-gradient(to bottom, #4e69a2, #3b5998);
+    transition: .2s ease all;
+}
+
+.post-btn:hover {
+    /* background: linear-gradient(to bottom, #647aa9, #5971a6); */
+    opacity: .8;
+}
+</style>
 
 <script>
 import HeaderComponent from "@/components/header-component.vue";
