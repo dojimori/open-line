@@ -83,7 +83,7 @@ form {
   }
 
   to {
-    width: 300px;
+    width: 340px;
   }
 }
 
