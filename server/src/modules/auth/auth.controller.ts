@@ -13,6 +13,7 @@ class AuthController {
       const payload: RegisterDto = {
         username: req.body.username,
         password: req.body.password,
+        passwordConfirmation: req.body.passwordConfirmation
       };
 
       await authService.register(payload);
@@ -38,7 +39,7 @@ class AuthController {
 
       req.session.user = { id: user.id, username: user.username };
 
-      res.status(200).json({ message: "Login successfully." });
+      res.status(200).json({ message: "Login successfully.", user });
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }

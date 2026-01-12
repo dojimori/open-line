@@ -10,14 +10,21 @@ import userService from "../users/user.service";
 // TODO: Create custom error instance to modify status codes
 
 class AuthService {
+  // TODO refactor error handling lmao
   async register(payload: RegisterDto): Promise<User | undefined> {
-    const { username, password } = payload;
-    if (!username || !password) {
-      throw new Error("Please fill in missing fields..");
+    const { username, password, passwordConfirmation } = payload;
+    if (!username || !password || !passwordConfirmation) {
+      throw new Error("Please fill in missing fields.");
+    }
+
+    if (password !== passwordConfirmation) {
+      // TODO refactor: throw new AppError with status 409
+      throw new Error("Passwords does not match.");
     }
 
     if (password.length < 6) {
-      // return res.status(409).json({ message: "Password must be atleast 6 characters." });
+      // TODO refactor: throw new AppError with status 409
+      throw new Error("Password must be atleast 6 characters.");
     }
     try {
       const existingUser = await userRepository.findByUsername(username);
@@ -27,14 +34,16 @@ class AuthService {
         throw new Error("Username already taken.");
       }
 
-      const user = await authRepository.register(payload);
+      const user = await authRepository.register({ username, password });
 
       return user;
     } catch (error) {
       throw new Error(`${error}`)
     }
   }
+  
 
+  // TODO refactor error handling lmao
   async login(payload: LoginDto) {
     try {
       const { username, password } = payload;
@@ -55,8 +64,8 @@ class AuthService {
       }
 
       return user;
-    } catch (error) {
-        throw new Error(`Error logging in: ${error}.`)
+    } catch (error: any) {
+        throw new Error(`Error logging in: ${error.message}`)
     }
 
   }
