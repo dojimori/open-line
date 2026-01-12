@@ -8,6 +8,7 @@ class AuthService {
   async register(payload: RegisterDto): Promise<User | undefined> {
     const { username, password } = payload;
     if (!username || !password) {
+      throw new Error("Please fill in missing fields..");
       // return res.status(409).json({ message: "Please fill in missing fields." });
     }
 

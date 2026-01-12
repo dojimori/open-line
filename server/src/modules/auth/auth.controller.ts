@@ -12,9 +12,9 @@ class AuthController {
         password: req.body.password,
       }
 
-      const user = await authService.register(payload);
+      await authService.register(payload);
 
-      res.status(201).json({ message: 'Registered successfully, please login.'})
+      res.status(201).json({ message: 'Registered successfully, please login.' })
     } catch (error: any) {
       res.status(500).json({ message: error.message })
     }
