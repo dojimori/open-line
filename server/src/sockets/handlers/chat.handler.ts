@@ -1,7 +1,7 @@
 import { Server, Socket } from "socket.io"
 import { users } from "..";
 import { prisma } from "../../../lib/prisma";
-
+import userService from "../../modules/users/user.service";
 
 export const chatHandler = (io: Server, socket: Socket) => {
     socket.on('chat:message', async (data) => {
@@ -13,11 +13,7 @@ export const chatHandler = (io: Server, socket: Socket) => {
             user: messenger
         });
 
-        const user = await prisma.user.findUnique({
-            where: {
-                id: data.userId
-            }
-        })
+        const user = await userService.findById(data.id)
 
         if (!user) {
             return;

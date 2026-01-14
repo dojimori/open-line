@@ -6,6 +6,7 @@ class ChatService {
     chats?.reverse();
     return chats;
   }
+
 }
 
 export default new ChatService();
