@@ -22,7 +22,7 @@ class UserRepository implements IUserRepository {
 
       return user;
     } catch (error) {
-      console.log(`REPO error: ${error}`);
+      console.log(`database error: ${error}`);
       throw error;
     }
   }
