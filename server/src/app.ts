@@ -13,6 +13,7 @@ import cors from 'cors'
 import session from 'express-session'
 import { initializeSocketHandlers } from "./sockets"
 import path from "path"
+import { errorHandler } from "./middleware/error.middleware"
 const app = express();
 const server = http.createServer(app)
 
@@ -48,7 +49,7 @@ app.use('/uploads', express.static(path.join(root, 'uploads')))
 app.use('/api/auth', authRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/chats', chatsRoute);
-
+app.use(errorHandler)
 
 initializeSocketHandlers(io);
 server.listen(8080, () => {
