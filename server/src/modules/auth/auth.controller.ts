@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { prisma } from "../../../lib/prisma";
 import { RegisterDto } from "./dto/register.dto";
 import authService from "./auth.service";
 import { LoginDto } from "./dto/login.dto";
@@ -9,19 +8,8 @@ class AuthController {
    * @route /api/auth/register
    */
   async register(req: Request, res: Response) {
-    try {
-      const payload: RegisterDto = {
-        username: req.body.username,
-        password: req.body.password,
-        passwordConfirmation: req.body.passwordConfirmation
-      };
-
-      await authService.register(payload);
-
-      res.status(201).json({ message: "Registered successfully, please login." });
-    } catch (error: any) {
-      res.status(500).json({ message: error.message });
-    }
+    await authService.register(req.body);
+    res.status(201).json({ message: 'Registered successfully, please login' });
   }
 
   /**
@@ -29,20 +17,9 @@ class AuthController {
    */
 
   async login(req: Request, res: Response) {
-    try {
-      const payload: LoginDto = {
-        username: req.body.username,
-        password: req.body.password,
-      };
-
-      const user = await authService.login(payload);
-
-      req.session.user = { id: user.id, username: user.username };
-
-      res.status(200).json({ message: "Login successfully.", user });
-    } catch (error: any) {
-      res.status(500).json({ message: error.message });
-    }
+    const user = await authService.login(req.body);
+    req.session.user = { id: user.id, username: user.username };
+    res.status(200).json({ message: 'Login successfully', user });
   }
 }
 

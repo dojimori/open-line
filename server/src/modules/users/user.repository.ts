@@ -9,6 +9,7 @@ class UserRepository implements IUserRepository {
       data: payload,
     });
   }
+  
   async findByUsername(username: string): Promise<User> {
     try {
       const user = await prisma.user.findFirst({

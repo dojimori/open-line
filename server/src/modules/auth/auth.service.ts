@@ -1,5 +1,4 @@
 import { User } from "../../../generated/prisma/client";
-import authRepository from "./auth.repository";
 import { RegisterDto } from "./dto/register.dto";
 import bcrypt from "bcryptjs"
 import userRepository from "../users/user.repository";
@@ -29,7 +28,7 @@ class AuthService {
         throw new AppError("Username already taken", 409);
       }
 
-      const user = await authRepository.register({ username, password });
+      const user = await userRepository.create({ username, password });
 
       return user;
     } catch (error: any) {
@@ -45,7 +44,7 @@ class AuthService {
     try {
       const { username, password } = payload;
       if (!username || !password) {
-        throw new Error("Please fill in missing fields..");
+        throw new AppError("Please fill in missing fields..", 400);
       }
       
       const user = await userService.findByUsername(username);
