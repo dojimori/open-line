@@ -1,26 +1,37 @@
 
 import { Request, Response } from 'express'
 import { prisma } from '../../../lib/prisma'
+import chatRepository from './chat.repository'
 
-export const getAllChats = async (req: Request, res: Response) => {
-    try {
-        const chats = await prisma.chat.findMany({
-            take: 18,
-            include: {
-                user: {
-                    include: {
-                        profile: true
-                    }
-                }
-            },
-            orderBy: {
-                time: 'desc'
-            }
-        })
-        chats.reverse();
+class ChatController {
+    async getAll(req: Request, res: Response) {
+        const chats = await chatRepository.getAll();
+        chats?.reverse();
         res.status(200).send({ chats });
-    } catch (error) {
-        console.log(error)
-        res.status(500).json({ message: 'Something went terribly wrong' })
     }
 }
+
+export default new ChatController();
+
+// export const getAllChats = async (req: Request, res: Response) => {
+//     try {
+//         const chats = await prisma.chat.findMany({
+//             take: 18,
+//             include: {
+//                 user: {
+//                     include: {
+//                         profile: true
+//                     }
+//                 }
+//             },
+//             orderBy: {
+//                 time: 'desc'
+//             }
+//         })
+//         chats.reverse();
+//         res.status(200).send({ chats });
+//     } catch (error) {
+//         console.log(error)
+//         res.status(500).json({ message: 'Something went terribly wrong' })
+//     }
+// }
