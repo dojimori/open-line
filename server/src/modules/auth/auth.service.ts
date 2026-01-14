@@ -42,18 +42,21 @@ class AuthService {
   
   async login(payload: LoginDto) {
     try {
-      const { username, password } = payload;
-      if (!username || !password) {
+      const { username } = payload;
+      const _password = payload.password;
+      if (!username || !_password) {
         throw new AppError("Please fill in missing fields..", 400);
       }
       
       const user = await userService.findByUsername(username);
 
-      if (!user || !(await bcrypt.compare(password, user.password))) {
+      if (!user || !(await bcrypt.compare(_password, user.password))) {
         throw new AppError('Invalid account, please double check your username or password', 401)
       }
 
-      return user;
+      const { password, ...safeUser } = user;
+
+      return safeUser;
     } catch (error: any) {
       if (error.message == 'USER_NOT_FOUND') {
         throw new AppError('User not found, please double check your username or password', 404)
