@@ -1,5 +1,5 @@
 import { upload } from '../../config/multer.config';
-import express, { Response, Request } from 'express'
+import express from 'express'
 import usersController from './users.controller';
 
 const router = express.Router();
