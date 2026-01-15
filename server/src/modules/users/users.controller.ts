@@ -18,6 +18,21 @@ class UserController {
 
     return res.status(200).json({ user });
   }
+
+  async updateProfile(req: Request, res: Response) {
+    const isAuth = req.session.user;
+    
+    if (!isAuth) {
+      return res.status(403);
+    }
+    
+    const file = (req as any).file;
+    const profilePicture = file ? `/uploads/profiles/${file.filename}` : undefined;
+    await userService.upsertProfile({ ...req.body, profilePicture }, isAuth.id);
+    const user = await userService.findByIdWithProfile(isAuth.id);
+
+    res.status(200).json({ user });
+  }
 }
 
 // export const getMe = async (req: Request, res: Response) => {

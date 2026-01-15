@@ -1,6 +1,6 @@
 import userRepository from "./user.repository";
 import { prisma } from "../../../lib/prisma";
-import { User } from "../../../generated/prisma/client";
+import { Profile, User } from "../../../generated/prisma/client";
 import { CreateUserDto } from "./dto/create.dto";
 import bcrypt from "bcryptjs";
 
@@ -18,11 +18,20 @@ class UserService {
   async findById(id: number) {
     const { password, ...safeUser } = await userRepository.findById(id);
     return safeUser;
-  } 
+  }
 
   async findByIdWithProfile(id: number) {
     const { password, ...safeUser } = await userRepository.findById(id, true);
     return safeUser;
+  }
+
+  async upsertProfile(
+    payload: Profile,
+    userId: number
+  ) {
+    // TODO: check aboutMe, likes, and dislikes length if it exceeds to 200 characters
+    await userRepository.upsertProfile(payload, userId);
+
   }
 }
 
