@@ -55,7 +55,7 @@ class UserRepository implements IUserRepository {
       profilePicture,
     }: Profile,
     userId: number
-  ) {
+  ): Promise<Profile> {
     return await prisma.profile.upsert({
       where: { userId },
       create: {

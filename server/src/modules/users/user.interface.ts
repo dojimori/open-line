@@ -1,7 +1,8 @@
-import { User } from "../../../generated/prisma/client";
+import { Profile, User } from "../../../generated/prisma/client";
 import { CreateUserDto } from "./dto/create.dto";
 
 export interface IUserRepository {
   create(payload: CreateUserDto ): Promise<User>;
   findByUsername(username: string): Promise<User|null>;
+  upsertProfile(payload: Profile, userId: number): Promise<Profile>;
 }
