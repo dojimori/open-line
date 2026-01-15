@@ -18,7 +18,7 @@ class UserController {
       return res.status(403).json(null);
     }
 
-    const user = userService.findByIdWithProfile(isAuth.id);
+    const user = await userService.findByIdWithProfile(isAuth.id);
 
     return res.status(200).json({ user });
   }
