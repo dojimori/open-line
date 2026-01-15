@@ -6,7 +6,7 @@
 
 **request payload**
 
-```
+```json
 {
   "username": "doujin22",
   "password": "password"
@@ -15,7 +15,7 @@
 
 **response**
 - status **201**
-```
+```json
 {
   "message": "Registered succesfully, please login"
 }
@@ -25,7 +25,7 @@
 
 **request payload**
 
-```
+```json
 {
   "username": "doujin22",
   "password": "password"
@@ -34,7 +34,7 @@
 
 **response**
 - status **200**
-```
+```json
 {
   "message": "Login succesfully"
 }
